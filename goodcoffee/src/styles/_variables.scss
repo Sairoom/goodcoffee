@@ -1,0 +1,37 @@
+// Палитра снята с фотографий кофейни: жёлтая стена и логотип, графитовые
+// стены зала, крафт-пакеты, дерево реек под меню.
+
+$yellow: #ffd400;
+$yellow-deep: #f5b800;
+$yellow-soft: #fff2b8;
+
+$graphite: #34383b;
+$graphite-dark: #24272a;
+$graphite-light: #4a4f53;
+
+$cream: #faf7f1;
+$paper: #ffffff;
+$kraft: #c89b6a;
+$wood: #a97c4e;
+
+$ink: #1c1e20;
+$ink-muted: #6d7377;
+
+$radius-sm: 10px;
+$radius: 18px;
+$radius-lg: 28px;
+
+$font-display: 'Unbounded', 'Manrope', system-ui, sans-serif;
+$font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+$font-board: 'Oswald', 'Manrope', system-ui, sans-serif;
+
+$shadow-sm: 0 2px 10px rgba(28, 30, 32, 0.08);
+$shadow: 0 14px 40px rgba(28, 30, 32, 0.12);
+$shadow-lg: 0 30px 70px rgba(28, 30, 32, 0.22);
+
+$bp-lg: 1100px;
+$bp-md: 860px;
+$bp-sm: 600px;
+
+$container: 1180px;
+$header-h: 76px;

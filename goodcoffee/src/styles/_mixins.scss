@@ -1,0 +1,65 @@
+@use 'variables' as *;
+
+@mixin container {
+  width: 100%;
+  max-width: $container;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  @media (max-width: $bp-sm) {
+    padding: 0 18px;
+  }
+}
+
+@mixin below($bp) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+
+@mixin section-padding {
+  padding: 110px 0;
+
+  @include below($bp-md) {
+    padding: 76px 0;
+  }
+
+  @include below($bp-sm) {
+    padding: 58px 0;
+  }
+}
+
+// Заголовок секции: «Меню», «Атмосфера» и т.д.
+@mixin section-title {
+  font-family: $font-display;
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+@mixin eyebrow {
+  font-family: $font-body;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+// Мягкое появление блока при скролле — используется через .is-visible
+@mixin reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

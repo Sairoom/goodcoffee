@@ -1,0 +1,144 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.reviews {
+  @include section-padding;
+  background: $cream;
+
+  &__inner {
+    @include container;
+  }
+
+  &__head {
+    max-width: 620px;
+    margin-bottom: 52px;
+  }
+
+  &__eyebrow {
+    @include eyebrow;
+    color: $yellow-deep;
+  }
+
+  &__title {
+    @include section-title;
+    margin-top: 14px;
+  }
+
+  &__note {
+    margin-top: 18px;
+    color: $ink-muted;
+  }
+
+  // Пробковая доска в деревянной раме
+  &__board {
+    @include reveal;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 26px;
+    padding: 40px 34px;
+    border-radius: $radius-lg;
+    border: 12px solid #d9b183;
+    background-color: #c69a63;
+    background-image: radial-gradient(rgba(120, 78, 40, 0.28) 1.2px, transparent 1.3px),
+      radial-gradient(rgba(255, 236, 205, 0.34) 1.2px, transparent 1.3px);
+    background-size: 13px 13px, 19px 19px;
+    background-position: 0 0, 7px 9px;
+    box-shadow: inset 0 0 60px rgba(94, 58, 22, 0.35), $shadow;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 36px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    background: $ink;
+    color: $paper;
+    font-weight: 800;
+    font-size: 0.94rem;
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      background: $yellow;
+      color: $ink;
+    }
+  }
+
+  @include below($bp-sm) {
+    &__board {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 18px;
+      padding: 26px 20px;
+      border-width: 8px;
+    }
+  }
+}
+
+.note {
+  position: relative;
+  min-height: 150px;
+  padding: 30px 18px 20px;
+  background: #fff9c4;
+  transform: rotate(var(--tilt, 0deg));
+  box-shadow: 3px 6px 14px rgba(80, 48, 16, 0.28);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+
+  &:hover {
+    transform: rotate(0deg) translateY(-6px) scale(1.03);
+    box-shadow: 5px 12px 24px rgba(80, 48, 16, 0.34);
+    z-index: 2;
+  }
+
+  &__pin {
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    width: 13px;
+    height: 13px;
+    margin-left: -6.5px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 32%, #ff8f8f, #c92a2a 62%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  }
+
+  &__text {
+    font-family: $font-display;
+    font-weight: 400;
+    font-size: 0.98rem;
+    line-height: 1.35;
+    color: #2c2417;
+  }
+
+  &__author {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.62;
+  }
+
+  &--pink {
+    background: #ffd7e4;
+  }
+
+  &--yellow {
+    background: #fff6b0;
+  }
+
+  &--blue {
+    background: #cfe9ff;
+  }
+
+  &--green {
+    background: #d6f5cf;
+  }
+
+  &--peach {
+    background: #ffe1c2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}

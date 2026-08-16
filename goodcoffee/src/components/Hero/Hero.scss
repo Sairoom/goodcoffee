@@ -1,0 +1,317 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.hero {
+  position: relative;
+  padding-top: $header-h + 60px;
+  overflow: hidden;
+
+  // Тёплое жёлтое пятно, как стена за стойкой
+  &::before {
+    content: '';
+    position: absolute;
+    top: -220px;
+    right: -180px;
+    width: 720px;
+    height: 720px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 212, 0, 0.5), rgba(255, 212, 0, 0) 68%);
+    pointer-events: none;
+  }
+
+  &__inner {
+    @include container;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
+    align-items: center;
+    padding-bottom: 90px;
+  }
+
+  &__eyebrow {
+    @include eyebrow;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(28, 30, 32, 0.16);
+    color: $ink-muted;
+  }
+
+  &__title {
+    margin: 26px 0 0;
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    letter-spacing: -0.03em;
+  }
+
+  // Жёлтая «прокраска» под ключевыми словами
+  &__mark {
+    position: relative;
+    white-space: nowrap;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -0.06em;
+      right: -0.06em;
+      bottom: 0.02em;
+      height: 0.42em;
+      background: $yellow;
+      border-radius: 4px;
+      z-index: -1;
+    }
+  }
+
+  &__lead {
+    max-width: 46ch;
+    margin-top: 24px;
+    color: $ink-muted;
+    font-size: 1.06rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 30px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.98rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+
+    &--primary {
+      background: $ink;
+      color: $paper;
+      box-shadow: 0 12px 28px rgba(28, 30, 32, 0.26);
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 34px rgba(28, 30, 32, 0.32);
+      }
+    }
+
+    &--ghost {
+      border: 2px solid rgba(28, 30, 32, 0.18);
+
+      &:hover {
+        background: $yellow;
+        border-color: $yellow;
+        transform: translateY(-3px);
+      }
+    }
+  }
+
+  &__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 38px;
+    margin: 46px 0 0;
+    padding-top: 28px;
+    border-top: 1px solid rgba(28, 30, 32, 0.12);
+
+    dt {
+      @include eyebrow;
+      color: $ink-muted;
+      font-size: 0.68rem;
+    }
+
+    dd {
+      margin: 6px 0 0;
+      font-family: $font-display;
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+  }
+
+  &__media {
+    position: relative;
+    min-height: 520px;
+  }
+
+  &__photo {
+    box-shadow: $shadow-lg;
+
+    &--main {
+      height: 520px;
+      border-radius: $radius-lg;
+    }
+
+    &--sub {
+      position: absolute;
+      left: -56px;
+      bottom: -34px;
+      width: 210px;
+      height: 250px;
+      border-radius: $radius;
+      border: 6px solid $cream;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: -20px;
+    right: -14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    background: $yellow;
+    text-align: center;
+    box-shadow: 0 16px 34px rgba(245, 184, 0, 0.4);
+    animation: hero-float 5s ease-in-out infinite;
+
+    span {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    strong {
+      font-family: $font-display;
+      font-size: 0.92rem;
+      line-height: 1.15;
+      margin-top: 4px;
+    }
+  }
+
+  // Бегущая строка — как наклейки на витрине
+  &__marquee {
+    position: relative;
+    padding: 18px 0;
+    background: $ink;
+    color: $paper;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__marquee-track {
+    display: flex;
+    width: max-content;
+    animation: hero-marquee 34s linear infinite;
+  }
+
+  &__marquee-group {
+    display: flex;
+    align-items: center;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      font-family: $font-board;
+      font-weight: 500;
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    i {
+      margin: 0 30px;
+      font-style: normal;
+      font-size: 0.6rem;
+      color: $yellow;
+    }
+  }
+
+  @include below($bp-lg) {
+    &__photo--main {
+      height: 460px;
+    }
+
+    &__media {
+      min-height: 460px;
+    }
+  }
+
+  @include below($bp-md) {
+    padding-top: $header-h + 34px;
+
+    &__inner {
+      grid-template-columns: 1fr;
+      gap: 56px;
+      padding-bottom: 64px;
+    }
+
+    &__media {
+      min-height: 0;
+      max-width: 520px;
+    }
+
+    &__photo--main {
+      height: 400px;
+    }
+
+    &__photo--sub {
+      left: auto;
+      right: -18px;
+      bottom: -28px;
+      width: 160px;
+      height: 190px;
+    }
+
+    &__badge {
+      width: 104px;
+      height: 104px;
+      top: -16px;
+      right: auto;
+      left: -14px;
+    }
+  }
+
+  @include below($bp-sm) {
+    &__facts {
+      gap: 24px;
+    }
+
+    &__btn {
+      flex: 1 1 100%;
+    }
+
+    &__photo--main {
+      height: 330px;
+    }
+
+    &__photo--sub {
+      width: 128px;
+      height: 150px;
+    }
+  }
+}
+
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__marquee-track,
+  .hero__badge {
+    animation: none;
+  }
+}

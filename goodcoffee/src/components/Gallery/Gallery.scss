@@ -1,0 +1,94 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.gallery {
+  @include section-padding;
+  background: $paper;
+
+  &__inner {
+    @include container;
+  }
+
+  &__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+
+  &__eyebrow {
+    @include eyebrow;
+    color: $yellow-deep;
+  }
+
+  &__title {
+    @include section-title;
+    margin-top: 14px;
+  }
+
+  &__note {
+    max-width: 34ch;
+    color: $ink-muted;
+    font-size: 0.98rem;
+  }
+
+  &__grid {
+    @include reveal;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 230px;
+    grid-auto-flow: dense;
+    gap: 20px;
+  }
+
+  &__item {
+    height: 100%;
+    box-shadow: $shadow-sm;
+    transition: box-shadow 0.35s ease;
+
+    &:hover {
+      box-shadow: $shadow;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+
+    &--wide {
+      grid-column: span 2;
+    }
+
+    &--tall {
+      grid-row: span 2;
+    }
+  }
+
+  @include below($bp-md) {
+    &__head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 200px;
+    }
+  }
+
+  @include below($bp-sm) {
+    &__grid {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 240px;
+    }
+
+    &__item--wide {
+      grid-column: span 1;
+    }
+
+    &__item--tall {
+      grid-row: span 1;
+    }
+  }
+}

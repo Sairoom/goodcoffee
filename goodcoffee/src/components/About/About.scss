@@ -1,0 +1,169 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.about {
+  @include section-padding;
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+  }
+
+  &__eyebrow {
+    @include eyebrow;
+    color: $yellow-deep;
+  }
+
+  &__title {
+    @include section-title;
+    margin-top: 14px;
+  }
+
+  &__text {
+    margin-top: 22px;
+    max-width: 48ch;
+    color: $ink-muted;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid $yellow;
+    font-weight: 800;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover svg {
+      transform: translateX(5px);
+    }
+  }
+
+  &__media {
+    position: relative;
+
+    // Жёлтая подложка со смещением
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 26px -26px -26px 26px;
+      border-radius: $radius-lg;
+      background: $yellow;
+      z-index: -1;
+    }
+  }
+
+  &__photo {
+    height: 520px;
+    border-radius: $radius-lg;
+    box-shadow: $shadow;
+
+    &:hover img {
+      transform: scale(1.04);
+    }
+  }
+
+  &__features {
+    @include container;
+    @include reveal;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 96px;
+  }
+
+  @include below($bp-lg) {
+    &__features {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @include below($bp-md) {
+    &__inner {
+      grid-template-columns: 1fr;
+      gap: 54px;
+    }
+
+    &__media::before {
+      inset: 18px -18px -18px 18px;
+    }
+
+    &__photo {
+      height: 380px;
+    }
+
+    &__features {
+      margin-top: 64px;
+    }
+  }
+
+  @include below($bp-sm) {
+    &__features {
+      grid-template-columns: 1fr;
+    }
+
+    &__photo {
+      height: 300px;
+    }
+  }
+}
+
+.feature {
+  padding: 30px 26px 32px;
+  border-radius: $radius;
+  background: $paper;
+  border: 1px solid rgba(28, 30, 32, 0.07);
+  box-shadow: $shadow-sm;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow;
+  }
+
+  &__icon {
+    width: 34px;
+    height: 34px;
+    fill: none;
+    stroke: $ink;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    .icon-fill {
+      fill: $yellow;
+      stroke: $ink;
+    }
+
+    .icon-fill-soft {
+      fill: rgba(255, 212, 0, 0.4);
+    }
+  }
+
+  &__title {
+    margin-top: 20px;
+    font-family: $font-display;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  &__text {
+    margin-top: 10px;
+    color: $ink-muted;
+    font-size: 0.94rem;
+  }
+}

@@ -1,0 +1,61 @@
+@use '../../styles/variables' as *;
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: $ink;
+  user-select: none;
+
+  &__cup {
+    width: 30px;
+    height: 39px;
+    flex-shrink: 0;
+    overflow: visible;
+  }
+
+  &__lid {
+    fill: $yellow;
+    stroke: currentColor;
+    stroke-width: 2.2;
+  }
+
+  &__body {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linejoin: round;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.94;
+  }
+
+  &__word {
+    font-family: $font-display;
+    font-weight: 600;
+    font-size: 1.32rem;
+    letter-spacing: 0.02em;
+  }
+
+  &__word--second {
+    font-size: 1.1rem;
+    letter-spacing: 0.09em;
+  }
+
+  &__tagline {
+    margin-top: 4px;
+    font-family: $font-body;
+    font-weight: 600;
+    font-size: 0.6rem;
+    letter-spacing: 0.42em;
+    text-transform: lowercase;
+    opacity: 0.62;
+  }
+
+  &--light {
+    color: $paper;
+  }
+}

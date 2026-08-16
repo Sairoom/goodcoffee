@@ -1,0 +1,85 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.footer {
+  background: $graphite-dark;
+  color: rgba(255, 255, 255, 0.72);
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 48px;
+    padding-top: 70px;
+    padding-bottom: 54px;
+  }
+
+  &__slogan {
+    max-width: 34ch;
+    margin-top: 22px;
+    font-family: $font-display;
+    font-size: 1.02rem;
+    line-height: 1.4;
+    color: $paper;
+  }
+
+  &__nav,
+  &__contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-content: start;
+
+    a {
+      width: fit-content;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $yellow;
+      }
+    }
+  }
+
+  &__phone {
+    font-family: $font-display;
+    font-size: 1.16rem;
+    color: $paper;
+  }
+
+  &__bottom {
+    @include container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-top: 22px;
+    padding-bottom: 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.86rem;
+    color: rgba(255, 255, 255, 0.45);
+
+    a:hover {
+      color: $yellow;
+    }
+  }
+
+  @include below($bp-md) {
+    &__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding-top: 54px;
+    }
+  }
+
+  @include below($bp-sm) {
+    &__inner {
+      grid-template-columns: 1fr;
+      gap: 34px;
+    }
+
+    &__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
