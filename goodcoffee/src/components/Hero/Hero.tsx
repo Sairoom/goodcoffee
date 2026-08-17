@@ -11,6 +11,12 @@ const marquee = [
   'Альтернативное молоко',
 ];
 
+// Лента прокручивается ровно на одну копию и начинается заново. Чтобы
+// в конце цикла не появлялось пустоты, копий должно хватать на ширину
+// экрана: видимая часть не длиннее, чем (COPIES - 1) копий. Шести хватает
+// даже на сверхширокие мониторы. Число уходит в CSS через --copies.
+const MARQUEE_COPIES = 6;
+
 export function Hero() {
   return (
     <section className="hero" id="top">
@@ -75,8 +81,11 @@ export function Hero() {
       </div>
 
       <div className="hero__marquee" aria-hidden="true">
-        <div className="hero__marquee-track">
-          {[0, 1].map((copy) => (
+        <div
+          className="hero__marquee-track"
+          style={{ '--copies': MARQUEE_COPIES } as React.CSSProperties}
+        >
+          {Array.from({ length: MARQUEE_COPIES }, (_, copy) => (
             <div className="hero__marquee-group" key={copy}>
               {marquee.map((text) => (
                 <span key={text}>

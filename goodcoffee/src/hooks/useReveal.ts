@@ -1,10 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 
+interface RevealOptions {
+  /** Какая доля элемента должна попасть в окно, чтобы он считался видимым. */
+  threshold?: number;
+  /** Запас вокруг окна: положительный — сработает заранее. */
+  rootMargin?: string;
+}
+
 /**
  * Помечает элемент как видимый, когда он появляется во вьюпорте.
- * Класс .is-visible включает анимацию из миксина reveal().
+ * Класс .is-visible включает анимацию из миксина reveal(), а флаг visible
+ * позволяет отложить тяжёлое содержимое (например, карту) до прокрутки.
  */
-export function useReveal<T extends HTMLElement = HTMLDivElement>() {
+export function useReveal<T extends HTMLElement = HTMLDivElement>(
+  options: RevealOptions = {}
+) {
+  const { threshold = 0.12, rootMargin = '0px 0px -40px 0px' } = options;
   const ref = useRef<T>(null);
   const [visible, setVisible] = useState(false);
 
@@ -24,12 +35,12 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold, rootMargin }
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [threshold, rootMargin]);
 
-  return { ref, className: visible ? 'is-visible' : '' };
+  return { ref, visible, className: visible ? 'is-visible' : '' };
 }

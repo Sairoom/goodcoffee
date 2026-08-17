@@ -108,10 +108,10 @@
     }
   }
 
-  &__photo {
-    height: 100%;
+  // Карта занимает всю правую половину карточки; скругление даёт
+  // .contacts__inner своим overflow: hidden
+  &__map {
     min-height: 460px;
-    border-radius: 0;
   }
 
   @include below($bp-md) {
@@ -123,9 +123,10 @@
       padding: 40px 26px;
     }
 
-    &__photo {
-      min-height: 320px;
-      order: -1;
+    // На узком экране карта встаёт под контактами: сперва адрес и
+    // телефон, потом карта
+    &__map {
+      min-height: 340px;
     }
   }
 

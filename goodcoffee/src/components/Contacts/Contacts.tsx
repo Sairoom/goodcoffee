@@ -1,6 +1,6 @@
 import { info } from '../../data/info';
 import { useReveal } from '../../hooks/useReveal';
-import { Photo } from '../Photo/Photo';
+import { YandexMap } from '../YandexMap/YandexMap';
 import './Contacts.scss';
 
 export function Contacts() {
@@ -63,12 +63,7 @@ export function Contacts() {
           </a>
         </div>
 
-        <Photo
-          className="contacts__photo"
-          src="/images/facade-window.jpg"
-          alt="Фасад кофейни Good Coffee: окно в кирпичной стене, внутри жёлтая стена"
-          caption="Ищите жёлтое окно во дворе"
-        />
+        <YandexMap className="contacts__map" />
       </div>
     </section>
   );

@@ -200,11 +200,15 @@
   &__marquee-track {
     display: flex;
     width: max-content;
+    will-change: transform;
+    // Скорость задаётся временем прохода одной копии, а не всей ленты,
+    // поэтому от количества копий она не зависит.
     animation: hero-marquee 34s linear infinite;
   }
 
   &__marquee-group {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
 
     span {
@@ -290,12 +294,15 @@
   }
 }
 
+// Сдвиг ровно на одну копию: копии одинаковые, поэтому в момент сброса
+// картинка совпадает сама с собой и стык не виден. --copies приходит
+// из Hero.tsx (MARQUEE_COPIES).
 @keyframes hero-marquee {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(calc(-100% / var(--copies, 6)));
   }
 }
 
