@@ -12,8 +12,8 @@ export function Footer() {
         </div>
 
         <nav className="footer__nav">
-          <a href="#menu">Меню</a>
           <a href="#about">О нас</a>
+          <a href="#menu">Меню</a>
           <a href="#gallery">Атмосфера</a>
           <a href="#reviews">Отзывы</a>
           <a href="#contacts">Контакты</a>

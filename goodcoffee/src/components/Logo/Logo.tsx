@@ -8,8 +8,12 @@ interface LogoProps {
 }
 
 /**
- * Логотип кофейни: стакан с жёлтой крышкой играет роль буквы «G»
- * в слове GOOD, ниже — подпись «кофейня».
+ * Логотип кофейни: стакан с жёлтой крышкой и надпись GOOD COFFEE,
+ * ниже — подпись «кофейня».
+ *
+ * В фирменном знаке стакан стоит на месте буквы «G», но в вебе он читается
+ * как отдельная иконка, и слово распадалось на «OOD COFFEE». Поэтому здесь
+ * стакан — самостоятельный знак, а слово набрано полностью.
  */
 export function Logo({ light = false, withTagline = true, className = '' }: LogoProps) {
   return (
@@ -28,7 +32,7 @@ export function Logo({ light = false, withTagline = true, className = '' }: Logo
       </svg>
 
       <span className="logo__text">
-        <span className="logo__word">OOD</span>
+        <span className="logo__word">GOOD</span>
         <span className="logo__word logo__word--second">COFFEE</span>
         {withTagline && <span className="logo__tagline">кофейня</span>}
       </span>

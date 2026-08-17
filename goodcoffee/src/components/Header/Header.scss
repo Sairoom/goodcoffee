@@ -49,10 +49,6 @@
     }
   }
 
-  &__nav-phone {
-    display: none;
-  }
-
   &__phone {
     padding: 11px 20px;
     border-radius: 999px;
@@ -73,6 +69,17 @@
     background: rgba(250, 247, 241, 0.86);
     backdrop-filter: blur(14px);
     box-shadow: 0 1px 0 rgba(28, 30, 32, 0.08);
+  }
+
+  // Над открытым меню шапка того же цвета, что и подложка, без тени —
+  // они сливаются в одну плоскость. Именно непрозрачный фон, а не
+  // transparent: сквозь прозрачную шапку на время анимации просвечивала
+  // страница. Правило идёт после --scrolled: специфичность та же,
+  // побеждает порядок.
+  &--menu-open {
+    background: $cream;
+    backdrop-filter: none;
+    box-shadow: none;
   }
 
   &__burger {
@@ -114,45 +121,100 @@
       display: block;
     }
 
+    // На мобильных навигация живёт в отдельной подложке .mobile-menu
+    &__nav,
     &__phone {
       display: none;
     }
+  }
+}
 
-    &__nav {
-      position: fixed;
-      inset: 0;
-      flex-direction: column;
-      justify-content: center;
-      gap: 26px;
-      background: $cream;
-      font-size: 1.5rem;
-      font-family: $font-display;
-      font-weight: 600;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-12px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+// Полноэкранное мобильное меню. Лежит соседом шапки, а не внутри неё,
+// поэтому его position: fixed всегда считается от вьюпорта — никакие
+// фильтры на шапке на него не влияют. z-index ниже шапки, чтобы логотип
+// и крестик оставались поверх подложки и кликались.
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  gap: 26px;
+  // Сверху оставляем место под шапку с логотипом и крестиком
+  padding: ($header-h + 12px) 24px 40px;
+  background: $cream;
+  font-family: $font-display;
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
 
-      &.is-open {
-        opacity: 1;
-        pointer-events: auto;
-        transform: none;
-      }
-    }
+  // Панель непрозрачна всегда и просто выезжает сверху. Раньше она
+  // проявлялась через opacity — и всю анимацию сквозь неё была видна
+  // страница. Съезжающая панель закрывает экран с первого кадра.
+  //
+  // Кривая близка к easeOutExpo: панель стартует быстро и долго
+  // замедляется у края, поэтому остановка не читается как рывок.
+  visibility: hidden;
+  transform: translateY(-100%);
+  will-change: transform;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.55s;
 
-    &__nav-phone {
-      display: block;
-      margin-top: 10px;
-      padding: 12px 26px;
-      border-radius: 999px;
-      background: $yellow;
-      font-family: $font-body;
-      font-size: 1rem;
-      font-weight: 800;
+  // Автополя центрируют пункты, пока на экране есть место, и схлопываются,
+  // когда его нет (телефон в альбомной ориентации): тогда список просто
+  // прокручивается и верхние пункты не обрезаются, как это было бы
+  // с justify-content: center
+  > :first-child {
+    margin-top: auto;
+  }
 
-      &::after {
-        display: none;
-      }
+  > :last-child {
+    margin-bottom: auto;
+  }
+
+  &.is-open {
+    visibility: visible;
+    transform: none;
+  }
+
+  // Пункты догоняют панель по очереди: панель успевает пройти большую
+  // часть пути, и только потом проявляется список. Без этого всё
+  // приезжало одним куском и выглядело резче, чем есть.
+  a {
+    opacity: 0;
+    transform: translateY(-14px);
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &.is-open a {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(0.16s + var(--i, 0) * 0.05s);
+  }
+
+  &__phone {
+    align-self: center;
+    margin-top: 10px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: $yellow;
+    font-family: $font-body;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+
+  @include below($bp-md) {
+    display: flex;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    a,
+    &.is-open a {
+      transition: none;
+      transition-delay: 0s;
     }
   }
 }
